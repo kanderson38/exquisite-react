@@ -14,6 +14,22 @@ class Game extends Component {
     };
   }
 
+  onLineSubmitted = (allLineElements) => {
+    console.log(allLineElements);
+
+    const line = FIELDS.map((field) => {
+      if (field.key) {
+        return allLineElements[field.key];
+      } else {
+        return field;
+      }
+    }).join(" ");
+
+    this.setState({
+      lines: this.state.lines.push(line),
+    });
+  }
+
   render() {
 
     const exampleFormat = FIELDS.map((field) => {
@@ -38,7 +54,7 @@ class Game extends Component {
 
         <RecentSubmission />
 
-        <PlayerSubmissionForm fields={FIELDS} />
+        <PlayerSubmissionForm fields={FIELDS} onLineSubmittedCallback={this.onLineSubmitted} />
 
         <FinalPoem />
 
