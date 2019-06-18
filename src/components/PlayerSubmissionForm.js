@@ -59,7 +59,7 @@ class PlayerSubmissionForm extends Component {
     return (
       fields.map((field, index) => {
         if (field.key) {
-          console.log(this.state.lineElements[field.key]);
+          
           return (
             <input key={index}
               name={field.key}

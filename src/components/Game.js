@@ -15,7 +15,6 @@ class Game extends Component {
   }
 
   onLineSubmitted = (allLineElements) => {
-    console.log(allLineElements);
 
     const line = FIELDS.map((field) => {
       if (field.key) {
@@ -44,7 +43,6 @@ class Game extends Component {
     }).join(" ");
 
     const lastLine = this.state.lines[this.state.lines.length - 1];
-    console.log(lastLine);
 
     return (
       <div className="Game">
@@ -62,7 +60,7 @@ class Game extends Component {
 
         <PlayerSubmissionForm fields={FIELDS} onLineSubmittedCallback={this.onLineSubmitted} />
 
-        <FinalPoem />
+        <FinalPoem lines={this.state.lines}/>
 
       </div>
     );
