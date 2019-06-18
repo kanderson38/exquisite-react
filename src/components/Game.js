@@ -25,8 +25,11 @@ class Game extends Component {
       }
     }).join(" ");
 
+    const allLines = this.state.lines;
+    allLines.push(line);
+
     this.setState({
-      lines: this.state.lines.push(line),
+      lines: allLines,
     });
   }
 
@@ -40,6 +43,9 @@ class Game extends Component {
       }
     }).join(" ");
 
+    const lastLine = this.state.lines[this.state.lines.length - 1];
+    console.log(lastLine);
+
     return (
       <div className="Game">
         <h2>Game</h2>
@@ -52,7 +58,7 @@ class Game extends Component {
           { exampleFormat }
         </p>
 
-        <RecentSubmission />
+        <RecentSubmission line={lastLine} />
 
         <PlayerSubmissionForm fields={FIELDS} onLineSubmittedCallback={this.onLineSubmitted} />
 

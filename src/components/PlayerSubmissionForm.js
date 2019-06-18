@@ -8,15 +8,30 @@ class PlayerSubmissionForm extends Component {
 
     this.state = {
       currentPlayer: 1,
-      lineElements: {},
+      lineElements: this.setInitialLineElements(),
     }
+  }
+
+  setInitialLineElements = () => {
+    const allKeys = this.props.fields.map((field) => {
+      if (field.key) {
+        return field.key
+      }
+    });
+
+    const lineElementsInitialState = {};
+    allKeys.forEach((key) => {
+      lineElementsInitialState[key] = "";
+    });
+
+    return lineElementsInitialState;
   }
 
   handleSubmitClicked = (event) => {
     event.preventDefault();
     this.setState({
       currentPlayer: this.state.currentPlayer + 1,
-      
+      lineElements: this.setInitialLineElements(),
     });
 
     const allLineElements = this.state.lineElements;
@@ -26,29 +41,33 @@ class PlayerSubmissionForm extends Component {
 
   handleChangeField = (event) => {
     if (event.target.value !== "") {
-    event.target.className = "";
+      event.target.className = "";
     } else {
       event.target.className = "PlayerSubmissionForm__input--invalid";
     }
 
     const newWordObj = this.state.lineElements;
     newWordObj[event.target.name] = event.target.value;
-    this.setState ({
+    this.setState({
       lineElements: newWordObj,
     })
   }
 
   renderForm = () => {
     const { fields } = this.props;
+
     return (
       fields.map((field, index) => {
         if (field.key) {
+          console.log(this.state.lineElements[field.key]);
           return (
-            <input key={index} 
-            name={field.key} 
-            placeholder={field.placeholder} 
-            onChange={this.handleChangeField} 
-            className="PlayerSubmissionForm__input--invalid" />
+            <input key={index}
+              name={field.key}
+              placeholder={field.placeholder}
+              onChange={this.handleChangeField}
+              className="PlayerSubmissionForm__input--invalid"
+              value={this.state.lineElements[field.key]}
+            />
           );
         } else {
           return (
@@ -56,7 +75,7 @@ class PlayerSubmissionForm extends Component {
           );
         }
       })
-  
+
     );
   }
 
