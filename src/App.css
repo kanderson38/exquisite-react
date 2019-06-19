@@ -12,3 +12,7 @@
   font-size: 0.85rem;
   color: gray;
 }
+
+.hidden {
+  display: none;
+}

@@ -37,6 +37,8 @@ class PlayerSubmissionForm extends Component {
     const allLineElements = this.state.lineElements;
 
     this.props.onLineSubmittedCallback(allLineElements);
+
+    this.props.changeRecentVisibilityCallback();
   };
 
   handleChangeField = (event) => {
@@ -82,7 +84,7 @@ class PlayerSubmissionForm extends Component {
   render() {
 
     return (
-      <div className="PlayerSubmissionForm">
+      <div className={this.props.myClass}>
         <h3>Player Submission Form for Player #{this.state.currentPlayer}</h3>
 
         <form className="PlayerSubmissionForm__form" >

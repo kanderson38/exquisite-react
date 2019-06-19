@@ -11,6 +11,10 @@ class Game extends Component {
 
     this.state = {
       lines: [],
+      finalPoemClass: "FinalPoem__poem hidden",
+      recentSubmissionClass: "hidden",
+      submissionFormClass: "",
+      finalButtonClass: "FinalPoem__reveal-btn-container"
     };
   }
 
@@ -30,6 +34,27 @@ class Game extends Component {
     this.setState({
       lines: allLines,
     });
+  };
+
+  changeRecentVisibility = () => { 
+    this.setState ({
+      recentSubmissionClass: "",
+    })
+  };
+
+  changeFinalVisibility = () => { 
+    this.setState ({
+      finalPoemClass: "FinalPoem__Poem",
+      finalButtonClass: "hidden",
+      submissionFormClass: "hidden",
+      recentSubmissionClass: "hidden",
+    })
+  };
+
+  changeFormVisibility = () => { 
+    this.setState ({
+      submissionFormClass: "hidden",
+    })
   }
 
   render() {
@@ -56,11 +81,16 @@ class Game extends Component {
           { exampleFormat }
         </p>
 
+        <div className={this.state.recentSubmissionClass}>
         <RecentSubmission line={lastLine} />
+        </div>
+        
+        <PlayerSubmissionForm fields={FIELDS} onLineSubmittedCallback={this.onLineSubmitted} changeRecentVisibilityCallback={this.changeRecentVisibility} 
+        myClass={this.state.submissionFormClass} />
 
-        <PlayerSubmissionForm fields={FIELDS} onLineSubmittedCallback={this.onLineSubmitted} />
-
-        <FinalPoem lines={this.state.lines}/>
+        <FinalPoem lines={this.state.lines} changeFinalVisibilityCallback={this.changeFinalVisibility}
+        myClass={this.state.finalPoemClass} 
+        buttonClass={this.state.finalButtonClass} />
 
       </div>
     );
